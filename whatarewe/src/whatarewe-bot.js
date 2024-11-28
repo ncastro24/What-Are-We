@@ -14,7 +14,7 @@ const Chatbot = () => {
   const [userMessage, setUserMessage] = useState('');
   const [dropdownActive, setDropdownActive] = useState(true);
 
-  // Function to handle dropdown selection
+  // dropdown selection
   const handleDropdownSelect = (selectedOption) => {
     const userResponse = { type: 'text', text: selectedOption, sender: 'user' };
     setMessages((prevMessages) => [...prevMessages, userResponse]);
@@ -31,36 +31,36 @@ const Chatbot = () => {
     }, 1000);
   };
 
-  // Function to handle user message
+  // user message
   const handleSendMessage = async () => {
     if (!userMessage) return;
 
-    // Add user message to the chat
+    // add user message to chat
     setMessages((prevMessages) => [
       ...prevMessages,
       { sender: 'user', text: userMessage, type: 'text' },
     ]);
 
     try {
-      // Send user message to the Flask API
-      const response = await axios.post('http://127.0.0.1:5000/chat', {
-        user_message: userMessage,
-      });
+      // send user message to flask
+      const response = await axios.post('http://127.0.0.1:5000/chat',
+      {user_message: userMessage},
+      {headers: {'Content-Type': 'application/json',},}); //without this axios sends an OPTIONS req instead of POST
 
-      // Add bot response to the chat
+      // bot response to chat
       setMessages((prevMessages) => [
         ...prevMessages,
-        { sender: 'bot', text: response.data.response, type: 'text' },
+        { sender: 'bot', text: response.data.response, type: 'text' }, //returns the response as text
       ]);
     } catch (error) {
       console.error('Error communicating with the API:', error);
-      setMessages((prevMessages) => [
+       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'bot', text: 'Error: Unable to connect to chatbot.', type: 'text' },
       ]);
     }
 
-    // Clear the input field
+    // clear input field
     setUserMessage('');
   };
 
@@ -110,12 +110,12 @@ const Chatbot = () => {
               : 'Paste your message...'
           }
           style={styles.input}
-          disabled={dropdownActive} // Disable input if dropdown is active
+          disabled={dropdownActive} // disable input if dropdown is active
         />
         <button
           onClick={handleSendMessage}
           style={styles.button}
-          disabled={dropdownActive} // Disable button if dropdown is active
+          disabled={dropdownActive} // disable button if dropdown is active
         >
           ❤
         </button>
