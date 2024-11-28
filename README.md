@@ -1,12 +1,12 @@
 # What Are We
-Frontend for the Final project for ENGR 510
+Frontend for the Final project for ENGR 510\
 Used the chatbot logic found here by group member: https://github.com/kkhawk20/510_finalProject/tree/main
 
 ## Prereq packages:
-pip install flask
-pip install flask-cors
-npm install
-npm install axios
+pip install flask\
+pip install flask-cors\
+npm install\
+npm install axios\
 
 ## Instructions to run
 1. Navigate to the folder of the What Are We app and open a terminal in the folder
